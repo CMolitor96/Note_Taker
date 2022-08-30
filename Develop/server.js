@@ -4,8 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 
 
-
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -21,11 +20,6 @@ app.get('/notes', (req, res) =>
 
 app.get('/api/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/db/db.json'))
-);
-
-
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
 app.post('/api/notes', (req, res) => {
@@ -47,6 +41,30 @@ app.post('/api/notes', (req, res) => {
   });
   res.json(newNote);
 });
+
+app.delete('/api/notes/:id', (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  fs.readFile ('./db/db.json', function (err, data) {
+    var json = JSON.parse(data);
+    const results = json.filter((note) => {
+      return note.id != id;
+    })
+    fs.writeFile ('./db/db.json', JSON.stringify(results), (err) => {
+      if (err) {
+        console.log(err);
+      }
+    })
+    res.json(results);
+  });
+});
+
+
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/public/index.html'))
+);
+
+
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
