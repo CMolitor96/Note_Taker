@@ -8,20 +8,25 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+//Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
 
+//Get request for note taking homepage
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
+//Get request for viewing JSON file of all notes
 app.get('/api/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/db/db.json'))
 );
 
+
+//Post request for adding a new note to JSON file
 app.post('/api/notes', (req, res) => {
   const { title, text} = req.body;
   const newNote = {
@@ -42,6 +47,8 @@ app.post('/api/notes', (req, res) => {
   res.json(newNote);
 });
 
+
+//Delete request for deleting notes and removing from JSON file
 app.delete('/api/notes/:id', (req, res) => {
   const id = req.params.id;
   console.log(id);
@@ -60,6 +67,7 @@ app.delete('/api/notes/:id', (req, res) => {
 });
 
 
+//Get request for directing to homepage
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
