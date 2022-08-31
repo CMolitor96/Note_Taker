@@ -42,22 +42,22 @@ app.post('/api/notes', (req, res) => {
   res.json(newNote);
 });
 
-// app.delete('/api/notes/:id', (req, res) => {
-//   const id = req.params.id;
-//   console.log(id);
-//   fs.readFile ('./db/db.json', function (err, data) {
-//     var json = JSON.parse(data);
-//     const results = json.filter((note) => {
-//       return note.id != id;
-//     })
-//     fs.writeFile ('./db/db.json', JSON.stringify(results), (err) => {
-//       if (err) {
-//         console.log(err);
-//       }
-//     })
-//     res.json(results);
-//   });
-// });
+app.delete('/api/notes/:id', (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  fs.readFile ('./db/db.json', function (err, data) {
+    var json = JSON.parse(data);
+    const results = json.filter((note) => {
+      return note.id != id;
+    })
+    fs.writeFile ('./db/db.json', JSON.stringify(results), (err) => {
+      if (err) {
+        console.log(err);
+      }
+    })
+    res.json(results);
+  });
+});
 
 
 app.get('*', (req, res) =>
