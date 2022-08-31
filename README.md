@@ -14,7 +14,10 @@ Note Taker is a web application that allows users to create and delete notes tha
 [Questions](#questions)
 
 ## Project Install:
-Simply visit the deployed application via the linked URL on Heroku and begin taking notes. If downloading or cloning this repository, simply open the server file, create a server with node, navigate to the local host URL, and begin taking notes.
+Simply visit the deployed application via the linked URL below on Heroku and begin taking notes. If downloading or cloning this repository, simply open the server file, create a server with node, navigate to the local host URL, and begin taking notes.
+
+Heroku Application: (https://safe-shelf-23641.herokuapp.com/)
+
 
 
 ## License:
